@@ -86,21 +86,16 @@ export default function UploadPage() {
       } else {
         setError("Unexpected response format from Gemini.");
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
+      let errorMessage = "An error occurred during conflict check. Please try again.";
+      if (err instanceof Error) {
+        errorMessage = err.message;
+      }
       console.error("Error during conflict check:", err);
-      setError(err.message || "An error occurred during conflict check. Please try again.");
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleSimulateUpdateAndRerun = () => {
-    if (selectedFiles.length === 0) {
-      alert("No documents to re-check. Please upload documents first.");
-      return;
-    }
-    alert("Simulating document update and re-running conflict check...");
-    runConflictCheck();
   };
 
   const handleDownloadReport = () => {

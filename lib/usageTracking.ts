@@ -5,14 +5,14 @@ interface UsageRecord {
   userId: string; // Assuming a user ID for tracking
   num_docs_uploaded: number;
   num_reports_generated: number;
-  details?: any; // Optional details about the usage
+  details?: unknown; // Optional details about the usage
 }
 
 let usageHistory: UsageRecord[] = [];
 
 const COST_PER_API_CALL = 0.01; // Example cost in USD
 
-export function recordUsage(userId: string, numDocs: number, numReports: number, details?: any): UsageRecord {
+export function recordUsage(userId: string, numDocs: number, numReports: number, details?: unknown): UsageRecord {
   const newRecord: UsageRecord = {
     id: `usage-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
     timestamp: new Date(),

@@ -22,9 +22,13 @@ export default function DashboardPage() {
         }
         const data: UsageStats = await response.json();
         setUsageStats(data);
-      } catch (err: any) {
+      } catch (err: unknown) {
+        let errorMessage = "Failed to fetch usage statistics.";
+        if (err instanceof Error) {
+          errorMessage = err.message;
+        }
         console.error("Error fetching usage stats:", err);
-        setError(err.message || "Failed to fetch usage statistics.");
+        setError(errorMessage);
       } finally {
         setLoading(false);
       }
